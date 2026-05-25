@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Magulick — AI-Native Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --gray: #888;
+    --light-gray: #e8e8e4;
+    --accent: #c8ff00;
+    --mid: #1a1a1a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(200,255,0,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(200,255,0,0.03) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative;
+    max-width: 900px;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,255,0,0.1);
+    border: 1px solid rgba(200,255,0,0.3);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 160px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-subtitle {
+    font-size: 18px;
+    color: var(--gray);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--white); transform: translateY(-1px); }
+
+  .hero-stats {
+    position: absolute;
+    right: 48px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat {
+    text-align: right;
+    border-right: 2px solid var(--accent);
+    padding-right: 20px;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 48px; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1;
+    margin-bottom: 56px;
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* ABOUT */
+  .about { background: var(--black); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(245,245,240,0.75);
+  }
+  .about-text p + p { margin-top: 20px; }
+  .about-traits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .trait {
+    background: var(--mid);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray);
+    transition: background 0.2s, color 0.2s;
+  }
+  .trait:hover { background: rgba(200,255,0,0.08); color: var(--white); }
+  .trait-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  /* EXPERIENCE */
+  .experience { background: var(--mid); }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .exp-meta {}
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exp-company {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  .exp-type {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .exp-content {}
+  .exp-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .exp-bullets li {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(245,245,240,0.7);
+    padding-left: 20px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* PROJECTS */
+  .projects { background: var(--black); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+  .project-card {
+    background: var(--mid);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { background: #1f1f1f; }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .project-name {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .project-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .project-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(245,245,240,0.6);
+    margin-bottom: 20px;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(200,255,0,0.08);
+    border: 1px solid rgba(200,255,0,0.2);
+    color: var(--accent);
+    border-radius: 2px;
+  }
+  .project-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    word-break: break-all;
+  }
+  .project-link:hover { color: var(--accent); }
+
+  /* SKILLS */
+  .skills { background: var(--mid); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .skill-item {
+    background: rgba(255,255,255,0.03);
+    padding: 14px 20px;
+    font-size: 14px;
+    color: rgba(245,245,240,0.75);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 2px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .skill-item:hover { border-color: var(--accent); background: rgba(200,255,0,0.04); }
+
+  /* CONTENT */
+  .content { background: var(--black); }
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+  }
+  .platform-card {
+    background: var(--mid);
+    padding: 32px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .platform-card:hover { background: rgba(200,255,0,0.06); }
+  .platform-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .platform-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .platform-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .platform-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--accent);
+    color: var(--black);
+    padding: 100px 48px;
+    text-align: center;
+  }
+  .contact .section-label { color: rgba(0,0,0,0.5); }
+  .contact .section-title { color: var(--black); margin-bottom: 24px; }
+  .contact-sub {
+    font-size: 16px;
+    color: rgba(0,0,0,0.6);
+    margin-bottom: 48px;
+  }
+  .contact-email {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 48px);
+    color: var(--black);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 48px;
+    letter-spacing: 2px;
+    transition: opacity 0.2s;
+  }
+  .contact-email:hover { opacity: 0.6; }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .social-link {
+    background: rgba(0,0,0,0.1);
+    color: var(--black);
+    text-decoration: none;
+    padding: 10px 24px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .social-link:hover { background: rgba(0,0,0,0.2); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer span {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 1px;
+  }
+
+  /* CERT BADGE */
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(200,255,0,0.08);
+    border: 1px solid rgba(200,255,0,0.2);
+    padding: 12px 20px;
+    margin-top: 40px;
+  }
+  .cert-icon { font-size: 20px; }
+  .cert-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .hero { padding: 100px 24px 72px; }
+    .hero-stats { display: none; }
+    .about-grid, .skills-grid, .exp-item { grid-template-columns: 1fr; gap: 32px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MAX MAGULICK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#content">Content</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">AI-Native Professional · Open to Work</div>
+    <h1 class="hero-name">MAX<br><span>MAGULICK</span></h1>
+    <p class="hero-subtitle">
+      Determined builder at the intersection of AI, automation, and real-world systems. 
+      Self-taught. Relentless. Built to do more with less.
+    </p>
+    <div class="hero-ctas">
+      <a href="max_magulick_resume.pdf" class="btn-primary" download>Download Resume</a>
+      <a href="#projects" class="btn-outline">View Projects</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">70+</div>
+      <div class="stat-label">MSP Clients Managed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">AI Apps Deployed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">MS-900</div>
+      <div class="stat-label">Microsoft Certified</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">// 01 — About</div>
+  <h2 class="section-title">WHO I AM</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a 20-year-old self-taught AI and automation professional from Central Ohio. 
+        While most people my age were in classrooms, I was building live AI applications, 
+        managing 70+ client accounts at an MSP, and teaching practical AI workflows to 
+        thousands of followers online.
+      </p>
+      <p>
+        I believe one person with the right tools and systems can do the work of an entire team. 
+        That's not a slogan — it's something I prove every day. From deploying Azure-powered 
+        apps to building multi-step Zapier automations, I move fast and build things that work.
+      </p>
+      <p>
+        I'm targeting entry-level IT and AI roles at tech companies, MSPs, and AI-forward 
+        organizations where I can contribute immediately and grow rapidly.
+      </p>
+
+      <div class="cert-badge">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-name">Microsoft MS-900</div>
+          <div class="cert-issuer">Microsoft 365 Fundamentals · Certified</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-traits">
+      <div class="trait"><span class="trait-dot"></span>Ambitious</div>
+      <div class="trait"><span class="trait-dot"></span>Disciplined</div>
+      <div class="trait"><span class="trait-dot"></span>Builder</div>
+      <div class="trait"><span class="trait-dot"></span>Adaptable</div>
+      <div class="trait"><span class="trait-dot"></span>Technical</div>
+      <div class="trait"><span class="trait-dot"></span>Strategic</div>
+      <div class="trait"><span class="trait-dot"></span>AI-Native</div>
+      <div class="trait"><span class="trait-dot"></span>Self-Starter</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label">// 02 — Experience</div>
+  <h2 class="section-title">WHERE I'VE WORKED</h2>
+
+  <div class="exp-item">
+    <div class="exp-meta">
+      <div class="exp-date">SEP 2024 — MAR 2026</div>
+      <div class="exp-company">INTERMIXIT</div>
+      <div class="exp-type">Full-time · Remote · 1 yr 7 mos</div>
+    </div>
+    <div class="exp-content">
+      <div class="exp-title">MSP Account Manager / IT Support</div>
+      <ul class="exp-bullets">
+        <li>Supported ~70 client accounts in a managed service provider environment, handling ~50 service tickets per month</li>
+        <li>Served as the primary liaison between clients and technical teams, ensuring timely issue resolution</li>
+        <li>Created, tracked, and prioritized service tickets using Autotask PSA</li>
+        <li>Led and improved Quarterly Business Reviews (QBRs), increasing presentation quality and delivery efficiency</li>
+        <li>Maintained accurate client data across CRM and internal platforms</li>
+        <li>Collaborated with engineers on project planning, procurement, and service delivery</li>
+        <li>Built Power Automate workflows to improve internal processes and reduce manual tasks</li>
+        <li>Assisted team members with internal technical issues and onboarding</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-meta">
+      <div class="exp-date">SEP 2023 — APR 2024</div>
+      <div class="exp-company">COCA-COLA</div>
+      <div class="exp-type">ABARTA Beverages · Full-time · 8 mos</div>
+    </div>
+    <div class="exp-content">
+      <div class="exp-title">Order Picker</div>
+      <ul class="exp-bullets">
+        <li>Maintained high productivity in a fast-paced warehouse environment, contributing to hundreds of daily orders</li>
+        <li>Ensured accuracy and quality control in order preparation and shipment processes</li>
+        <li>Worked collaboratively with team members and supervisors to meet daily operational goals</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-label">// 03 — Projects</div>
+  <h2 class="section-title">WHAT I'VE BUILT</h2>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-name">AI Customer Support Automation System</div>
+      <div class="project-period">MAY 2026</div>
+      <p class="project-desc">
+        Built a multi-path Zapier automation system powered by ChatGPT (OpenAI) that classifies incoming 
+        support requests, routes them to the correct path (urgent, billing, technical, general), generates 
+        context-aware email responses, and logs records to Airtable — all without human intervention.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Zapier</span>
+        <span class="tag">ChatGPT</span>
+        <span class="tag">Airtable</span>
+        <span class="tag">Gmail</span>
+        <span class="tag">Slack</span>
+        <span class="tag">Google Forms</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-name">AI Image Generator</div>
+      <div class="project-period">APR 2026 — MAY 2026</div>
+      <p class="project-desc">
+        Built and deployed a web-based AI application using Azure OpenAI and Microsoft Foundry that 
+        generates high-quality images from text prompts. Implemented prompt enhancement, customizable 
+        styles, and real-time image generation. Integrated secure API handling and deployed for live usage.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Azure OpenAI</span>
+        <span class="tag">Microsoft Foundry</span>
+        <span class="tag">Streamlit</span>
+      </div>
+      <a class="project-link" href="https://ai-image-app-sl8hgxdvneslevt4usqhbt.streamlit.app/" target="_blank">↗ Live Demo</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-name">AI Text Analysis App</div>
+      <div class="project-period">MAR 2026 — APR 2026</div>
+      <p class="project-desc">
+        Built and deployed an AI-powered text analysis application using Azure AI Language and Streamlit. 
+        Detects language, extracts named entities, identifies PII (emails, phone numbers), and generates 
+        redacted output. Designed for document processing, compliance scanning, and AI automation workflows.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Azure AI</span>
+        <span class="tag">NLP</span>
+        <span class="tag">Streamlit</span>
+      </div>
+      <a class="project-link" href="https://ai-text-analysis-app-o6szo8hc52a35muuqrsd9v.streamlit.app/" target="_blank">↗ Live Demo</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-name">Power Automate Workflow Suite</div>
+      <div class="project-period">2024 — 2026</div>
+      <p class="project-desc">
+        Designed and deployed Microsoft Power Automate workflows at IntermixIT to streamline internal 
+        MSP operations — reducing manual data entry, accelerating ticket routing, and improving 
+        team-wide process efficiency across 70+ client accounts.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Power Automate</span>
+        <span class="tag">Microsoft 365</span>
+        <span class="tag">Autotask</span>
+        <span class="tag">CRM</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-label">// 04 — Skills</div>
+  <h2 class="section-title">WHAT I BRING</h2>
+
+  <div class="skills-grid">
+    <div>
+      <div class="skill-group-title">Technical Skills</div>
+      <div class="skill-list">
+        <div class="skill-item">Python <span style="color:var(--accent);font-size:11px">Development</span></div>
+        <div class="skill-item">Azure OpenAI / Azure AI <span style="color:var(--accent);font-size:11px">Cloud AI</span></div>
+        <div class="skill-item">Zapier / Power Automate <span style="color:var(--accent);font-size:11px">Automation</span></div>
+        <div class="skill-item">Streamlit <span style="color:var(--accent);font-size:11px">Deployment</span></div>
+        <div class="skill-item">ChatGPT / OpenAI API <span style="color:var(--accent);font-size:11px">AI Workflows</span></div>
+        <div class="skill-item">Microsoft 365 Suite <span style="color:var(--accent);font-size:11px">MS-900 Certified</span></div>
+        <div class="skill-item">Airtable / Notion / CRM <span style="color:var(--accent);font-size:11px">Operations</span></div>
+        <div class="skill-item">Autotask PSA <span style="color:var(--accent);font-size:11px">MSP Tools</span></div>
+        <div class="skill-item">Canva / Content Creation <span style="color:var(--accent);font-size:11px">Media</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title">Soft Skills</div>
+      <div class="skill-list">
+        <div class="skill-item">Communication <span style="color:var(--accent);font-size:11px">Client-Facing</span></div>
+        <div class="skill-item">Problem Solving <span style="color:var(--accent);font-size:11px">Systems Thinking</span></div>
+        <div class="skill-item">Adaptability <span style="color:var(--accent);font-size:11px">Fast Learner</span></div>
+        <div class="skill-item">Organization <span style="color:var(--accent);font-size:11px">Detail-Oriented</span></div>
+        <div class="skill-item">Determination <span style="color:var(--accent);font-size:11px">Self-Directed</span></div>
+        <div class="skill-item">Entrepreneurial Mindset <span style="color:var(--accent);font-size:11px">Builder</span></div>
+        <div class="skill-item">Content Strategy <span style="color:var(--accent);font-size:11px">Multi-Platform</span></div>
+        <div class="skill-item">Client Relations <span style="color:var(--accent);font-size:11px">70+ Accounts</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTENT / SOCIAL -->
+<section class="content" id="content">
+  <div class="section-label">// 05 — Content & Brand</div>
+  <h2 class="section-title">MY ONLINE PRESENCE</h2>
+  <p style="color:var(--gray);font-size:15px;margin-bottom:48px;max-width:560px;line-height:1.7;">
+    I create practical AI productivity content across multiple platforms — 
+    teaching real tools, real automations, and real results to a growing audience.
+  </p>
+  <div class="content-grid">
+    <div class="platform-card">
+      <div class="platform-icon">▶</div>
+      <div class="platform-name">YouTube</div>
+      <p class="platform-desc">Long & short-form AI productivity and automation tutorials</p>
+      <a class="platform-link" href="https://youtube.com/@maxmagulick" target="_blank">@maxmagulick</a>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">♪</div>
+      <div class="platform-name">TikTok</div>
+      <p class="platform-desc">Quick AI tips, tools, and workflow breakdowns</p>
+      <a class="platform-link" href="https://www.tiktok.com/@maxxingmagulick" target="_blank">@maxxingmagulick</a>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">in</div>
+      <div class="platform-name">LinkedIn</div>
+      <p class="platform-desc">Professional insights, project updates, and AI content</p>
+      <a class="platform-link" href="https://www.linkedin.com/in/max-magulick" target="_blank">max-magulick</a>
+    </div>
+    <div class="platform-card">
+      <div class="platform-icon">◎</div>
+      <div class="platform-name">Instagram</div>
+      <p class="platform-desc">Visual AI content and behind-the-scenes builds</p>
+      <a class="platform-link" href="https://www.instagram.com/maxmagulick" target="_blank">@maxmagulick</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">// 06 — Contact</div>
+  <h2 class="section-title">LET'S CONNECT</h2>
+  <p class="contact-sub">Open to full-time IT and AI roles. Let's talk.</p>
+  <a href="mailto:maxmagulick@gmail.com" class="contact-email">MAXMAGULICK@GMAIL.COM</a>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/max-magulick" class="social-link" target="_blank">LinkedIn</a>
+    <a href="https://youtube.com/@maxmagulick" class="social-link" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@maxxingmagulick" class="social-link" target="_blank">TikTok</a>
+    <a href="https://www.instagram.com/maxmagulick" class="social-link" target="_blank">Instagram</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Max Magulick</span>
+  <span>AI-Native · Builder · Columbus, OH</span>
+</footer>
+
+</body>
+</html>
